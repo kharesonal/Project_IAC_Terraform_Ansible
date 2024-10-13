@@ -272,6 +272,8 @@ resource "aws_instance" "custom_ec2" {
   user_data = file("${path.module}/user_data.sh")
 }
 ```
+![image](https://github.com/user-attachments/assets/4d51ed0d-0344-4138-b1b3-121af44c1ff6)
+
 
 - **Run the configuration with command terraform apply**
 
@@ -280,6 +282,7 @@ The command should output in the below format
 
 Fulls logs can be reffered here:  
 ```
+https://github.com/kharesonal/Project_IAC_Terraform_Ansible/blob/main/Terraform/output.log 
 ```
 
 
