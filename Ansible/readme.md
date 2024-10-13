@@ -78,6 +78,11 @@ Create an Ansible playbook named playbook.yml to install Node.js, NPM, and deplo
   `
   ![image](https://github.com/user-attachments/assets/125df00b-1ca1-4374-91a4-18ec41d117be)
 
+  **Open the frontend machine in browser**
+  ```
+  http://<frontend_ip>:3000
+  ```
+
   **Expected Output**
 
   ![Screenshot 2024-10-13 125119](https://github.com/user-attachments/assets/81499e20-f319-4293-bf6b-0d34373d428c)
