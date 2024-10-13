@@ -1,0 +1,533 @@
+$ terraform apply
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_eip.nat_eip will be created
+  + resource "aws_eip" "nat_eip" {
+      + allocation_id        = (known after apply)
+      + association_id       = (known after apply)
+      + carrier_ip           = (known after apply)
+      + customer_owned_ip    = (known after apply)
+      + domain               = (known after apply)
+      + id                   = (known after apply)
+      + instance             = (known after apply)
+      + network_border_group = (known after apply)
+      + network_interface    = (known after apply)
+      + private_dns          = (known after apply)
+      + private_ip           = (known after apply)
+      + public_dns           = (known after apply)
+      + public_ip            = (known after apply)
+      + public_ipv4_pool     = (known after apply)
+      + tags                 = {
+          + "Name" = "Sonal_Elastic_IP"
+        }
+      + tags_all             = {
+          + "Name" = "Sonal_Elastic_IP"
+        }
+      + vpc                  = true
+    }
+
+  # aws_instance.custom_ec2 will be created
+  + resource "aws_instance" "custom_ec2" {
+      + ami                                  = "ami-0be9d1d0d97a3f358"
+      + arn                                  = (known after apply)
+      + associate_public_ip_address          = true
+      + availability_zone                    = "ap-northeast-3a"
+      + cpu_core_count                       = (known after apply)
+      + cpu_threads_per_core                 = (known after apply)
+      + disable_api_stop                     = (known after apply)
+      + disable_api_termination              = (known after apply)
+      + ebs_optimized                        = (known after apply)
+      + get_password_data                    = false
+      + host_id                              = (known after apply)
+      + host_resource_group_arn              = (known after apply)
+      + iam_instance_profile                 = (known after apply)
+      + id                                   = (known after apply)
+      + instance_initiated_shutdown_behavior = (known after apply)
+      + instance_state                       = (known after apply)
+      + instance_type                        = "t2.micro"
+      + ipv6_address_count                   = (known after apply)
+      + ipv6_addresses                       = (known after apply)
+      + key_name                             = "sonal_instance"
+      + monitoring                           = (known after apply)
+      + outpost_arn                          = (known after apply)
+      + password_data                        = (known after apply)
+      + placement_group                      = (known after apply)
+      + placement_partition_number           = (known after apply)
+      + primary_network_interface_id         = (known after apply)
+      + private_dns                          = (known after apply)
+      + private_ip                           = (known after apply)
+      + public_dns                           = (known after apply)
+      + public_ip                            = (known after apply)
+      + secondary_private_ips                = (known after apply)
+      + security_groups                      = (known after apply)
+      + source_dest_check                    = true
+      + subnet_id                            = (known after apply)
+      + tags                                 = {
+          + "Name" = "Sonal_EC2_Frontend"
+        }
+      + tags_all                             = {
+          + "Name" = "Sonal_EC2_Frontend"
+        }
+      + tenancy                              = (known after apply)
+      + user_data                            = "cff791154451a90104285f7a9628bdefb66ddb00"
+      + user_data_base64                     = (known after apply)
+      + user_data_replace_on_change          = false
+      + vpc_security_group_ids               = (known after apply)
+
+      + capacity_reservation_specification (known after apply)
+
+      + cpu_options (known after apply)
+
+      + ebs_block_device (known after apply)
+
+      + enclave_options (known after apply)
+
+      + ephemeral_block_device (known after apply)
+
+      + maintenance_options (known after apply)
+
+      + metadata_options (known after apply)
+
+      + network_interface (known after apply)
+
+      + private_dns_name_options (known after apply)
+
+      + root_block_device (known after apply)
+    }
+
+  # aws_instance.custom_ec2_backend will be created
+  + resource "aws_instance" "custom_ec2_backend" {
+      + ami                                  = "ami-017761facd1d38fca"
+      + arn                                  = (known after apply)
+      + associate_public_ip_address          = true
+      + availability_zone                    = (known after apply)
+      + cpu_core_count                       = (known after apply)
+      + cpu_threads_per_core                 = (known after apply)
+      + disable_api_stop                     = (known after apply)
+      + disable_api_termination              = (known after apply)
+      + ebs_optimized                        = (known after apply)
+      + get_password_data                    = false
+      + host_id                              = (known after apply)
+      + host_resource_group_arn              = (known after apply)
+      + iam_instance_profile                 = (known after apply)
+      + id                                   = (known after apply)
+      + instance_initiated_shutdown_behavior = (known after apply)
+      + instance_state                       = (known after apply)
+      + instance_type                        = "t2.micro"
+      + ipv6_address_count                   = (known after apply)
+      + ipv6_addresses                       = (known after apply)
+      + key_name                             = "sonal_instance"
+      + monitoring                           = (known after apply)
+      + outpost_arn                          = (known after apply)
+      + password_data                        = (known after apply)
+      + placement_group                      = (known after apply)
+      + placement_partition_number           = (known after apply)
+      + primary_network_interface_id         = (known after apply)
+      + private_dns                          = (known after apply)
+      + private_ip                           = (known after apply)
+      + public_dns                           = (known after apply)
+      + public_ip                            = (known after apply)
+      + secondary_private_ips                = (known after apply)
+      + security_groups                      = (known after apply)
+      + source_dest_check                    = true
+      + subnet_id                            = (known after apply)
+      + tags                                 = {
+          + "Name" = "Sonal_EC2_Backend"
+        }
+      + tags_all                             = {
+          + "Name" = "Sonal_EC2_Backend"
+        }
+      + tenancy                              = (known after apply)
+      + user_data                            = "5143c085f9f5f62979847bccff7ddd225229b2ac"
+      + user_data_base64                     = (known after apply)
+      + user_data_replace_on_change          = false
+      + vpc_security_group_ids               = (known after apply)
+
+      + capacity_reservation_specification (known after apply)
+
+      + cpu_options (known after apply)
+
+      + ebs_block_device (known after apply)
+
+      + enclave_options (known after apply)
+
+      + ephemeral_block_device (known after apply)
+
+      + maintenance_options (known after apply)
+
+      + metadata_options (known after apply)
+
+      + network_interface (known after apply)
+
+      + private_dns_name_options (known after apply)
+
+      + root_block_device (known after apply)
+    }
+
+  # aws_internet_gateway.igw will be created
+  + resource "aws_internet_gateway" "igw" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + owner_id = (known after apply)
+      + tags     = {
+          + "Name" = "Sonal_igw"
+        }
+      + tags_all = {
+          + "Name" = "Sonal_igw"
+        }
+      + vpc_id   = (known after apply)
+    }
+
+  # aws_nat_gateway.nat_gw will be created
+  + resource "aws_nat_gateway" "nat_gw" {
+      + allocation_id        = (known after apply)
+      + association_id       = (known after apply)
+      + connectivity_type    = "public"
+      + id                   = (known after apply)
+      + network_interface_id = (known after apply)
+      + private_ip           = (known after apply)
+      + public_ip            = (known after apply)
+      + subnet_id            = (known after apply)
+      + tags                 = {
+          + "Name" = "Sonal_NAT_GateWay"
+        }
+      + tags_all             = {
+          + "Name" = "Sonal_NAT_GateWay"
+        }
+    }
+
+  # aws_route_table.private_rt will be created
+  + resource "aws_route_table" "private_rt" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = [
+          + {
+              + cidr_block                 = "0.0.0.0/0"
+              + nat_gateway_id             = (known after apply)
+                # (12 unchanged attributes hidden)
+            },
+        ]
+      + tags             = {
+          + "Name" = "Sonal_private_route_table"
+        }
+      + tags_all         = {
+          + "Name" = "Sonal_private_route_table"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table.public_rt will be created
+  + resource "aws_route_table" "public_rt" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = [
+          + {
+              + cidr_block                 = "0.0.0.0/0"
+              + gateway_id                 = (known after apply)
+                # (12 unchanged attributes hidden)
+            },
+        ]
+      + tags             = {
+          + "Name" = "Sonal_public_route_table"
+        }
+      + tags_all         = {
+          + "Name" = "Sonal_public_route_table"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table_association.private_assoc will be created
+  + resource "aws_route_table_association" "private_assoc" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.public_assoc will be created
+  + resource "aws_route_table_association" "public_assoc" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_security_group.web_sg will be created
+  + resource "aws_security_group" "web_sg" {
+      + arn                    = (known after apply)
+      + description            = "Allow HTTP, HTTPS, and SSH inbound traffic"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "Allow all outbound traffic"
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "Allow 3000"
+              + from_port        = 3000
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 3000
+            },
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "Allow 3001"
+              + from_port        = 3001
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 3001
+            },
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "Allow HTTP"
+              + from_port        = 80
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 80
+            },
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "Allow HTTPS"
+              + from_port        = 443
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 443
+            },
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/32",
+                ]
+              + description      = "Allow ssh"
+              + from_port        = 22
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 22
+            },
+        ]
+      + name                   = "sonal_security_group"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "sonal_security_group"
+        }
+      + tags_all               = {
+          + "Name" = "sonal_security_group"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_subnet.private_subnet will be created
+  + resource "aws_subnet" "private_subnet" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = (known after apply)
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "15.0.2.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "private_subnet"
+        }
+      + tags_all                                       = {
+          + "Name" = "private_subnet"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.public_subnet will be created
+  + resource "aws_subnet" "public_subnet" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "ap-northeast-3a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "15.0.1.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "public_subnet"
+        }
+      + tags_all                                       = {
+          + "Name" = "public_subnet"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_vpc.my_vpc will be created
+  + resource "aws_vpc" "my_vpc" {
+      + arn                                  = (known after apply)
+      + cidr_block                           = "15.0.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_classiclink                   = (known after apply)
+      + enable_classiclink_dns_support       = (known after apply)
+      + enable_dns_hostnames                 = (known after apply)
+      + enable_dns_support                   = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + ipv6_cidr_block_network_border_group = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + tags                                 = {
+          + "Name" = "Sonal_Khare_VPC"
+        }
+      + tags_all                             = {
+          + "Name" = "Sonal_Khare_VPC"
+        }
+    }
+
+Plan: 13 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + ec2_backend         = (known after apply)
+  + ec2_frontend        = (known after apply)
+  + elastic_ip_id       = (known after apply)
+  + elastic_public_ip   = (known after apply)
+  + internet_gateway_id = (known after apply)
+  + nat_gateway_id      = (known after apply)
+  + private_subnet_id   = (known after apply)
+  + public_subnet_id    = (known after apply)
+  + vpc_id              = (known after apply)
+  + vpc_name            = "Sonal_Khare_VPC"
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+aws_eip.nat_eip: Creating...
+aws_vpc.my_vpc: Creating...
+aws_eip.nat_eip: Creation complete after 2s [id=eipalloc-04090fcec25ccc2b0]
+aws_vpc.my_vpc: Creation complete after 4s [id=vpc-04fc8a5f7b64595dd]
+aws_internet_gateway.igw: Creating...
+aws_subnet.private_subnet: Creating...
+aws_subnet.public_subnet: Creating...
+aws_security_group.web_sg: Creating...
+aws_internet_gateway.igw: Creation complete after 1s [id=igw-06e2a75199d5d8f3c]
+aws_route_table.public_rt: Creating...
+aws_subnet.private_subnet: Creation complete after 1s [id=subnet-0804495ed3ae49b69]
+aws_route_table.public_rt: Creation complete after 2s [id=rtb-0c1c773809690c6d2]
+aws_security_group.web_sg: Creation complete after 5s [id=sg-093ea96556bec77b3]
+aws_instance.custom_ec2_backend: Creating...
+aws_subnet.public_subnet: Still creating... [10s elapsed]
+aws_subnet.public_subnet: Creation complete after 12s [id=subnet-0f52db53603b7a5cf]
+aws_route_table_association.public_assoc: Creating...
+aws_nat_gateway.nat_gw: Creating...
+aws_instance.custom_ec2: Creating...
+aws_route_table_association.public_assoc: Creation complete after 1s [id=rtbassoc-0692acb4dd4631c68]
+aws_instance.custom_ec2_backend: Still creating... [10s elapsed]
+aws_instance.custom_ec2_backend: Creation complete after 14s [id=i-0980a4fcbc00dd219]
+aws_nat_gateway.nat_gw: Still creating... [10s elapsed]
+aws_instance.custom_ec2: Still creating... [10s elapsed]
+aws_instance.custom_ec2: Creation complete after 15s [id=i-05351c14c2d2f82db]
+aws_nat_gateway.nat_gw: Still creating... [20s elapsed]
+aws_nat_gateway.nat_gw: Still creating... [30s elapsed]
+aws_nat_gateway.nat_gw: Still creating... [40s elapsed]
+aws_nat_gateway.nat_gw: Still creating... [50s elapsed]
+aws_nat_gateway.nat_gw: Still creating... [1m0s elapsed]
+aws_nat_gateway.nat_gw: Still creating... [1m10s elapsed]
+aws_nat_gateway.nat_gw: Still creating... [1m20s elapsed]
+aws_nat_gateway.nat_gw: Still creating... [1m30s elapsed]
+aws_nat_gateway.nat_gw: Still creating... [1m40s elapsed]
+aws_nat_gateway.nat_gw: Still creating... [1m50s elapsed]
+aws_nat_gateway.nat_gw: Creation complete after 1m58s [id=nat-02eb8474ddc7a1b40]
+aws_route_table.private_rt: Creating...
+aws_route_table.private_rt: Creation complete after 2s [id=rtb-03aa292d64e372944]
+aws_route_table_association.private_assoc: Creating...
+aws_route_table_association.private_assoc: Creation complete after 1s [id=rtbassoc-079eacfd03d300e72]
+
+Apply complete! Resources: 13 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+ec2_backend = "13.208.44.175"
+ec2_frontend = "13.208.215.109"
+elastic_ip_id = "eipalloc-04090fcec25ccc2b0"
+elastic_public_ip = "13.208.108.59"
+internet_gateway_id = "igw-06e2a75199d5d8f3c"
+nat_gateway_id = "nat-02eb8474ddc7a1b40"
+private_subnet_id = "subnet-0804495ed3ae49b69"
+public_subnet_id = "subnet-0f52db53603b7a5cf"
+vpc_id = "vpc-04fc8a5f7b64595dd"
+vpc_name = "Sonal_Khare_VPC"
+
+vpc_id = "vpc-04fc8a5f7b64595dd"
+vpc_id = "vpc-04fc8a5f7b64595dd"
+vpc_id = "vpc-04fc8a5f7b64595dd"
+vpc_name = "Sonal_Khare_VPC"
+
+28him@LAPTOP-FM0RERKL MINGW64 ~/OneDrive/Desktop/terraform_assignment
+$ terraform apply > tt
+vpc_id = "vpc-04fc8a5f7b64595dd"
+vpc_name = "Sonal_Khare_VPC"
+
+28him@LAPTOP-FM0RERKL MINGW64 ~/OneDrive/Desktop/terraform_assignment
+vpc_id = "vpc-04fc8a5f7b64595dd"
+vpc_name = "Sonal_Khare_VPC"
+
+vpc_id = "vpc-04fc8a5f7b64595dd"
+vpc_name = "Sonal_Khare_VPC"
+vpc_id = "vpc-04fc8a5f7b64595dd"
+vpc_id = "vpc-04fc8a5f7b64595dd"
+vpc_name = "Sonal_Khare_VPC"
