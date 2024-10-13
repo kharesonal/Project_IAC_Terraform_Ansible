@@ -15,82 +15,101 @@ Install terraform for WINDOWS using link https://developer.hashicorp.com/terrafo
   
 ![image](https://github.com/user-attachments/assets/8fd2bd55-fe9c-4330-b8d1-4bb36cfa4db0)
 
+
+- **Configure providers and region in main.tf:**
   
 ```
-[webservers]
-ec2-instance-1 ansible_host=15.152.36.178 ansible_user=ubuntu ansible_ssh_private_key_file=sonal_instance.pem
-[backends]
-ec2-instance-2 ansible_host=13.208.209.155 ansible_user=ubuntu ansible_ssh_private_key_file=sonal_instance.pem
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.16"
+    }
+  }
+
+  required_version = ">= 1.2.0"
+}
+
+provider "aws" {
+  region = "ap-northeast-3"
+
+}
 ```
 
-- **Test your Ansible setup by running:**
+- **Create VPC:**
+```
+resource "aws_vpc" "my_vpc" {
+  cidr_block = var.vpc_cidr
+  tags = {
+    Name = "Sonal_Khare_VPC"
+  }
+
+}
+```
+- **Define vpc_cidr in variables.tf**
+```
+variable "vpc_cidr" {
+  description = "CIDR block for the VPC"
+  type        = string
+  default     = "15.0.0.0/16"
+}
+```
+![VPC](https://github.com/user-attachments/assets/52ef8289-42d4-4563-8ce5-c8be779c3ba5)
+
+
+- **Create Public and Private Subnet in main.tf**
+```
+variable "public_subnet_cidr" {
+  description = "CIDR block for the public subnet"
+  type        = string
+  default     = "15.0.1.0/24"
+}
+```
+```
+variable "private_subnet_cidr" {
+  description = "CIDR block for the private subnet"
+  type        = string
+  default     = "15.0.2.0/24"
+}
+```
+![subnet](https://github.com/user-attachments/assets/997a85b7-1194-4927-bab6-1f0ba0b546f4)
+
+- **Create internet gateway**
+```
+# Create Internet Gateway
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.my_vpc.id
+
+  tags = {
+    Name = "Sonal_igw"
+  }
+}
+```
+![internet_gateways](https://github.com/user-attachments/assets/95ff0dc4-0c09-4bac-8872-3f4554822539)
+
+- **Create elastic IP and nat gateway**
+```
+# Create Elastic IP for NAT Gateway
+resource "aws_eip" "nat_eip" {
+  vpc = true
+
+  tags = {
+    Name = "Sonal_Elastic_IP"
+  }
+}
+
+
+resource "aws_nat_gateway" "nat_gw" {
+  allocation_id = aws_eip.nat_eip.id
+  subnet_id     = aws_subnet.public_subnet.id
   
-`
-   ansible all -m ping -i inventory.ini
-`
 
-   ![image](https://github.com/user-attachments/assets/1619d09b-6444-4a7a-a9c4-8006b2fc1c43)
-
-
-**Step 2. Webserver and database server Setup**
-
-Create an Ansible playbook named playbook.yml to install Node.js, NPM, and deploy your MERN application.
-
-**The Ansible playbook performs the following tasks:**
-
-- **Install Nginx: Set up the Nginx web server on the target servers.**
-  
-  ![image](https://github.com/user-attachments/assets/2064fc6f-693e-4c63-bc28-f330849c2d4f)
-
-- **Install Node.js and npm: Install Node.js and its package manager, npm, along with their prerequisites.**
-
-   ![image](https://github.com/user-attachments/assets/e6f0bb01-3ba3-4998-b492-71b4c6451ac9)
-
-  
-- **Install Git: Ensure Git is installed for version control and cloning repositories.**
-
-   ![image](https://github.com/user-attachments/assets/8cfeea76-1c52-4de3-943a-5e8463cf2e7c)
-
-- **Clone a Git Repository: Clone the specified Git repository to the target server.**
-
-  ![image](https://github.com/user-attachments/assets/0a84b0d7-69e3-414b-babb-667fc0af0728)
-
-- **Change Permissions: Set the correct permissions for the cloned directory.**
-
-  ![image](https://github.com/user-attachments/assets/258da574-f6a8-47f3-a8ca-dc0cde236b6f)
-
- - **Update url.js in the Frontend: Copy the url.js file from the control node to the frontend server.**
-
-   ![image](https://github.com/user-attachments/assets/1050f251-9a7c-418f-a382-7acde72c4baa)
-
- - **Update .env of the Backend: Copy the .env file from the control node to the backend server.**
-
-   ![image](https://github.com/user-attachments/assets/a76fbfbe-249e-4324-a272-5f6ce17f3601)
-
- - **Setup and Start npm in Frontend: Install npm dependencies and start the frontend application.**
-
-   ![image](https://github.com/user-attachments/assets/828826d2-1150-42e0-90d0-1c0927390e36)
-
-- **Run npm Dependencies and Node.js Application in Backend: Install npm dependencies and run the Node.js application in the backend.**
-
-  ![image](https://github.com/user-attachments/assets/dea82c98-4d2b-4e0b-bb76-96114afcdfd5)
-
-  **Run the playbook.yml using command:**
-
-  `
-  ansible-playbook -i inventory.ini playbook.yml
-  `
-  ![image](https://github.com/user-attachments/assets/125df00b-1ca1-4374-91a4-18ec41d117be)
-
-  **Expected Output**
-
-  ![Screenshot 2024-10-13 125119](https://github.com/user-attachments/assets/81499e20-f319-4293-bf6b-0d34373d428c)
-  
-
-  ![Screenshot 2024-10-13 125151](https://github.com/user-attachments/assets/0ae0a5cb-3ae4-4391-9efd-ea2eeab02e40)
-
-  
-
+  tags = {
+    Name = "Sonal_NAT_GateWay"
+  }
+}
+```
+![nat_gateways](https://github.com/user-attachments/assets/16524b5c-68bd-474e-8a8e-d9e24a024d7f)
 
 
   
