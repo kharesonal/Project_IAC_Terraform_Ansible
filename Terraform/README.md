@@ -254,6 +254,34 @@ resource "aws_instance" "custom_ec2_backend" {
 
 }
 ```
+- **Create Frontend machine and update url.js with backend IP**
+```
+resource "aws_instance" "custom_ec2" {
+  ami                         = var.custom_ami_id_frontend
+  instance_type               = var.instance_type
+  subnet_id                   = aws_subnet.public_subnet.id
+  vpc_security_group_ids      = [aws_security_group.web_sg.id]
+  key_name                    = var.key_name
+  availability_zone           = "ap-northeast-3a"
+  associate_public_ip_address = true
+
+  tags = {
+    Name = "Sonal_EC2_Frontend"
+  }
+
+  user_data = file("${path.module}/user_data.sh")
+}
+```
+
+- **Run the configuration with command terraform apply**
+
+The command should output in the below format
+![image](https://github.com/user-attachments/assets/dacb1866-da1f-47b0-a6ff-4f203497acc5)
+
+Fulls logs can be reffered here:  
+```
+```
+
 
 
 
