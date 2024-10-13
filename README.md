@@ -32,7 +32,10 @@
 
    - Output the public IP of the web server EC2 instance.
 
-## Solution for Ansible project: https://github.com/kharesonal/Project_IAC_Terraform_Ansible/tree/main/Ansible
+## Solution for Terraform project:
+https://github.com/kharesonal/Project_IAC_Terraform_Ansible/tree/main/Terraform 
+
+
 
 
 ## Part 2: Configuration and Deployment with Ansible
@@ -66,15 +69,7 @@
 
    - Implement additional security measures as needed (e.g., SSH key pairs, disabling root login).
   
-## Solution for Terraform project: https://github.com/kharesonal/Project_IAC_Terraform_Ansible/tree/main/Terraform 
-   
+   ## Solution for Ansible project:
+    https://github.com/kharesonal/Project_IAC_Terraform_Ansible/tree/main/Ansible
+  
 
-## Deliverables:
-
-Terraform scripts for AWS infrastructure setup.  
-
-Ansible playbooks for configuration and deployment of the MERN application.  
-
-A detailed report documenting the implementation process, including how the application components interact with each other and the infrastructure.  
-
-Screenshots or a video recording demonstrating the working MERN application.
