@@ -288,6 +288,18 @@ Fulls logs can be referred here:
 https://github.com/kharesonal/Project_IAC_Terraform_Ansible/blob/main/Terraform/output.log 
 ```
 
+  **Open the frontend machine in browser**
+  ```
+  http://<frontend_ip>:3000
+  ```
+
+  **Expected Output**
+
+  ![Screenshot 2024-10-13 125119](https://github.com/user-attachments/assets/81499e20-f319-4293-bf6b-0d34373d428c)
+  
+
+  ![Screenshot 2024-10-13 125151](https://github.com/user-attachments/assets/0ae0a5cb-3ae4-4391-9efd-ea2eeab02e40)
+
 
 
 
