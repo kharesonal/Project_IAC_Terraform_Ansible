@@ -4,7 +4,8 @@
 
 Install terraform for WINDOWS using link https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli  
 
-- **After installation check if the terraform is installed or not:**  
+- **After installation check if the terraform is installed or not:**
+  
 ![image](https://github.com/user-attachments/assets/0da08428-1138-4c6f-87dd-33c43e6a1175)
 
 - **Configure aws on the local machine:**
@@ -272,15 +273,17 @@ resource "aws_instance" "custom_ec2" {
   user_data = file("${path.module}/user_data.sh")
 }
 ```
+
 ![image](https://github.com/user-attachments/assets/4d51ed0d-0344-4138-b1b3-121af44c1ff6)
 
 
 - **Run the configuration with command terraform apply**
 
-The command should output in the below format
+The command should output in the below format  
+
 ![image](https://github.com/user-attachments/assets/dacb1866-da1f-47b0-a6ff-4f203497acc5)
 
-Fulls logs can be reffered here:  
+Fulls logs can be referred here:  
 ```
 https://github.com/kharesonal/Project_IAC_Terraform_Ansible/blob/main/Terraform/output.log 
 ```
