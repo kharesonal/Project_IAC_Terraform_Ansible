@@ -71,7 +71,10 @@
 
 ## Deliverables:
 
-Terraform scripts for AWS infrastructure setup.
-Ansible playbooks for configuration and deployment of the MERN application.
-A detailed report documenting the implementation process, including how the application components interact with each other and the infrastructure.
+Terraform scripts for AWS infrastructure setup.  
+
+Ansible playbooks for configuration and deployment of the MERN application.  
+
+A detailed report documenting the implementation process, including how the application components interact with each other and the infrastructure.  
+
 Screenshots or a video recording demonstrating the working MERN application.
