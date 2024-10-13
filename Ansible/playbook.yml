@@ -1,0 +1,114 @@
+- name: Install Nginx on target server
+  hosts: all
+  become: true  # Run tasks as sudo/root
+  tasks:
+    - name: Update apt package index (for Debian/Ubuntu systems)
+      shell: apt-get update -y && apt install nginx -y
+
+    - name: Install prerequisites for Node.js
+      apt:
+        name: 
+          - curl
+          - gnupg
+        state: present
+
+    - name: Install Node.js 
+      apt:
+        name: nodejs
+        state: present
+
+    - name: Verify Node.js version
+      command: node -v
+      register: node_version
+    - debug:
+        msg: "Node.js version installed: {{ node_version.stdout }}"
+
+    - name: Install Node.js 
+      apt:
+        name: npm 
+        state: present
+
+    - name: Verify NPM version
+      command: npm -v
+      register: npm_version
+    - debug:
+        msg: "NPM version installed: {{ npm_version.stdout }}"
+
+    - name: Install Git (if not already installed)
+      apt:
+        name: git
+        state: present
+        update_cache: yes  # Ensure the package list is updated
+
+    - name: Clone the repository
+      git:
+        repo: https://github.com/UnpredictablePrashant/TravelMemory.git
+        dest: /home/ubuntu/sample_mern_project
+        version: main  # Specify branch, tag, or commit hash (default is HEAD)
+        force: yes     # Force re-cloning if the destination already exists
+
+    - name: Change the owner and group permission of the cloned directory
+      ansible.builtin.file:
+        path: /home/ubuntu/sample_mern_project
+        state: directory
+        owner: ubuntu
+        group: ubuntu
+        recurse: yes  # Recursively change ownership for all files and directories
+
+    - name: Verify the cloned files
+      command: ls -l /home/ubuntu/sample_mern_project
+      register: git_files
+    - debug:
+        msg: "Cloned files: {{ git_files.stdout_lines }}"
+
+
+- name: Update url.js file in the frontend server
+  hosts: webservers
+  become: true  # Run tasks as sudo/root
+  tasks:
+    - name: Copy url.js
+      ansible.builtin.copy:
+        src: url.js  # File on the control node
+        dest: /home/ubuntu/sample_mern_project/frontend/src  # Destination on the managed node
+        owner: ubuntu
+        group: ubuntu
+
+- name: Update .env of the backend server
+  hosts: backends 
+  become: true  # Run tasks as sudo/root
+  tasks:
+    - name: Copy .env file
+      ansible.builtin.copy:
+        src: .env_backend # File on the control node
+        dest: /home/ubuntu/sample_mern_project/backend/.env  # Destination on the managed node
+        owner: ubuntu
+        group: ubuntu
+
+
+- name: Setup and start npm in frontend
+  hosts: webservers # Replace with your target host or group
+  become: yes  # Use sudo if required
+  tasks:
+    - name: Install npm dependencies
+      ansible.builtin.shell: |
+        cd /home/ubuntu/sample_mern_project/frontend
+        npm install
+
+    - name: Run npm start
+      ansible.builtin.shell: |
+        cd /home/ubuntu/sample_mern_project/frontend && nohup npm start > npm.log 2>&1 &
+
+
+
+- name: Run the npm dependencies and run nodejs application in backend
+  hosts: backends # Replace with your target host or group
+  become: yes  # Use sudo if required
+  tasks:
+    - name: Install npm dependencies
+      ansible.builtin.shell: |
+        cd /home/ubuntu/sample_mern_project/backend
+        npm install
+    - name: Run node.js application
+      ansible.builtin.shell: |
+        cd /home/ubuntu/sample_mern_project/backend
+        nohup node index.js > index_js_log 2>&1 & 
