@@ -111,13 +111,149 @@ resource "aws_nat_gateway" "nat_gw" {
 ```
 ![nat_gateways](https://github.com/user-attachments/assets/16524b5c-68bd-474e-8a8e-d9e24a024d7f)
 
+- **Create public and private route table and associate with public and private subnet respectively**
+```
+# Create Public Route Table
+resource "aws_route_table" "public_rt" {
+  vpc_id = aws_vpc.my_vpc.id
 
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.igw.id
+  }
+
+  tags = {
+    Name = "Sonal_public_route_table"
+  }
+}
+
+# Associate Public Route Table with Public Subnet
+resource "aws_route_table_association" "public_assoc" {
+  subnet_id      = aws_subnet.public_subnet.id
+  route_table_id = aws_route_table.public_rt.id
   
+}
+
+# Create Private Route Table
+resource "aws_route_table" "private_rt" {
+  vpc_id = aws_vpc.my_vpc.id
+
+  route {
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.nat_gw.id
+  }
+
+  tags = {
+    Name = "Sonal_private_route_table"
+  }
+}
+
+# Associate Private Route Table with Private Subnet
+resource "aws_route_table_association" "private_assoc" {
+  subnet_id      = aws_subnet.private_subnet.id
+  route_table_id = aws_route_table.private_rt.id
+}
+```
+![routetable](https://github.com/user-attachments/assets/1deebad4-a4ff-4331-b8f4-23d664f81741)
+
+In the end resource map should like this:  
+![resource_map](https://github.com/user-attachments/assets/36ff76ed-5943-489c-9b10-d9443f997dd9)
 
 
+- **Create Security Group**
+```
+resource "aws_security_group" "web_sg" {
+  name        = "sonal_security_group"
+  description = "Allow HTTP, HTTPS, and SSH inbound traffic"
+  vpc_id      = aws_vpc.my_vpc.id
+
+  ingress {
+    description = "Allow HTTP"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "Allow HTTPS"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "Allow 3000"
+    from_port   = 3000
+    to_port     = 3000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "Allow 3001"
+    from_port   = 3001
+    to_port     = 3001
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
 
+  ingress {
+    description = "Allow ssh"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/32"]
+  }
 
+
+  egress {
+    description = "Allow all outbound traffic"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["49.23.42.155/0"]
+  }
+
+  tags = {
+    Name = "sonal_security_group"
+  }
+}
+```
+- **Create backend server and configure startup commands**
+```
+resource "aws_instance" "custom_ec2_backend" {
+  ami                         = var.custom_ami_id_backend
+  instance_type               = var.instance_type
+  subnet_id                   = aws_subnet.private_subnet.id
+  vpc_security_group_ids      = [aws_security_group.web_sg.id]
+  key_name                    = var.key_name
+  associate_public_ip_address = true
+
+    user_data = <<-EOF
+              #!/bin/bash
+              # Create the backend directory if it doesn't exist
+              cd /home/ubuntu/TravelMemory/backend
+
+              # Create the .env file with the specified content
+              cat <<EOT >> /home/ubuntu/TravelMemory/backend/.env
+              MONGO_URI="mongodb+srv://sonal:sonal1189@cluster-sonal.0ktone2.mongodb.net/MERN?retryWrites=true&w=majority"
+              PORT=3001
+              EOT
+
+              # Set appropriate permissions (optional)
+              chown ubuntu:ubuntu /home/ubuntu/TravelMemory/backend/.env
+              chmod 600 /home/ubuntu/TravelMemory/backend/.env
+              EOF
+
+  tags = {
+    Name = "Sonal_EC2_Backend"
+  }
+
+}
+```
 
 
 
